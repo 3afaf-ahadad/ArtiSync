@@ -7,59 +7,26 @@ use Illuminate\Http\Request;
 
 class MachineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $user = $request->user();
+        $query = Machine::query();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        if ($user->role === 'formateur') {
+            $query->where('filiere', $user->filiere);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $kpis = [
+            'total' => (clone $query)->count(),
+            'en_panne' => (clone $query)->where('status', 'broken')->count(),
+            'en_maintenance' => (clone $query)->where('status', 'maintenance')->count(),
+        ];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Machine $machine)
-    {
-        //
-    }
+        $machines = $query->latest()->simplePaginate(10);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Machine $machine)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Machine $machine)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Machine $machine)
-    {
-        //
+        return response()->json([
+            'kpis' => $kpis,
+            'machines' => $machines
+        ]);
     }
 }
