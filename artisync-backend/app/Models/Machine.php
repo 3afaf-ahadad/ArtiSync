@@ -14,4 +14,8 @@ class Machine extends Model
         'status',
         'filiere'
     ];
+    public function maintenances()
+{
+    return $this->hasMany(Maintenance::class)->latest();
+}
 }
