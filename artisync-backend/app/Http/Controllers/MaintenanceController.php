@@ -8,17 +8,14 @@ use Illuminate\Http\Request;
 
 class MaintenanceController extends Controller
 {
-    // À ajouter juste au-dessus ou en-dessous de la méthode store()
     public function index(Request $request, Machine $machine)
     {
         $user = $request->user();
 
-        // Sécurité : Un formateur ne peut voir que les maintenances de sa propre filière
         if ($user->role === 'formateur' && $machine->filiere !== $user->filiere) {
             return response()->json(['message' => 'Accès refusé'], 403);
         }
 
-        // Récupère l'historique trié du plus récent au plus ancien
         $maintenances = $machine->maintenances()->latest()->get();
 
         return response()->json($maintenances);
