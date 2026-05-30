@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import DashboardLayout from "../layouts/DashboardLayout";
 import { LayoutDashboard, Settings, Wrench } from "lucide-react";
 import logo from "../assets/LOGO.svg";
 

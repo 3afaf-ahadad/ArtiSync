@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DashboardLayout from './layouts/DashboardLayout';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Machines from "./pages/Machine";
 
 function App() {
   return (
@@ -7,9 +8,23 @@ function App() {
       <Routes>
         <Route path="/" element={<DashboardLayout />}>
           {/* Les vraies pages viendront remplacer ces divs plus tard */}
-          <Route index element={<div className="text-2xl font-bold text-[#5E503F]">Tableau de Bord (Bientôt)</div>} />
-          <Route path="machines" element={<div className="text-2xl font-bold text-[#5E503F]">Liste des Machines (Bientôt)</div>} />
-          <Route path="settings" element={<div className="text-2xl font-bold text-[#5E503F]">Paramètres (Bientôt)</div>} />
+          <Route
+            index
+            element={
+              <div className="text-2xl font-bold text-[#5E503F]">
+                Tableau de Bord (Bientôt)
+              </div>
+            }
+          />
+          <Route path="machines" element={<Machines />} />
+          <Route
+            path="settings"
+            element={
+              <div className="text-2xl font-bold text-[#5E503F]">
+                Paramètres (Bientôt)
+              </div>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

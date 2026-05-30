@@ -1,20 +1,23 @@
-import { useEffect, useState } from 'react';
-import api from '../api/axios';
+import { useEffect, useState } from "react";
+import api from "../api/axios";
 
 const Machines = () => {
   const [machines, setMachines] = useState([]);
 
   useEffect(() => {
-    // Appel à ton API Laravel (vérifie que ta route est bien 'machines')
-    api.get('/machines')
-      .then(response => setMachines(response.data))
-      .catch(error => console.error("Erreur chargement machines:", error));
+    api
+      .get("/machines")
+      .then((response) => {
+        console.log("Structure complète!! :", response.data);
+        setMachines(response.data.machines.data);
+      })
+      .catch((error) => console.error("Erreur chargement machines:", error));
   }, []);
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-[#5E503F]">Machines</h1>
-      
+
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b border-gray-100">
@@ -24,13 +27,13 @@ const Machines = () => {
             </tr>
           </thead>
           <tbody>
-            {machines.map(machine => (
+            {machines.map((machine) => (
               <tr key={machine.id} className="border-b border-gray-50">
                 <td className="p-4">{machine.name}</td>
                 <td className="p-4">
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-status-green-bg text-status-green-text">
-                        {machine.status}
-                    </span>
+                  <span className="px-2 py-1 rounded-full text-xs font-medium bg-status-green-bg text-status-green-text">
+                    {machine.status}
+                  </span>
                 </td>
               </tr>
             ))}

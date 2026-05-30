@@ -13,7 +13,7 @@ class MachineController extends Controller
         $user = $request->user();
         $query = Machine::query();
 
-        if ($user->role === 'formateur') {
+        if ($user && $user->role === 'formateur') {
             $query->where('filiere', $user->filiere);
         }
 
