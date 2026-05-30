@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ['operational', 'maintenance', 'broken'])->default('operational');
+            $table->enum('status', ['fonctionnelle', 'en maintenance', 'en panne'])->default('fonctionnelle');
             $table->enum('filiere', ['Haute Couture', 'Bijouterie', 'Menuiserie', 'Tapisserie', 'Maroquinerie']);
             $table->timestamps();
         });
